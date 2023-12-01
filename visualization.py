@@ -26,7 +26,7 @@ df = pd.read_csv(os.path.join(basePath, dataset))
 st.subheader('Jumlah Packet per Label')
 
 axes = df['Label'].value_counts().reset_index()
-plotDf = px.bar(axes, x='Label', y='count', color='Label')
+plotDf = px.bar(axes, x='Label', y='count', color='Label', text='count')
 st.plotly_chart(plotDf, theme='streamlit') 
 
 st.subheader('Jumlah Serangan per Waktu')
