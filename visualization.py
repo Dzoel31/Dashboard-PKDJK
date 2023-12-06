@@ -75,12 +75,18 @@ def filter_df(df: pd.DataFrame, labelFilter: list) -> pd.DataFrame:
 df_ddos, df_ddos_filter = filter_df(df, labelFilter)
 st.dataframe(df_ddos_filter)
 
+st.subheader('Total Serangan per Label')
+st.table(df_ddos_filter.groupby(by=['Label']).agg({
+    'Jumlah': 'sum',
+}).rename(columns={'Jumlah': 'Total'}).reset_index().sort_values(by='Total', ascending=False))
+
 st.write('Rangkuman')
 
 df_ddos_summary = df_ddos.groupby(by=['Source IP', 'Label']).agg({
     'Jumlah': 'sum',
 }).rename(columns={'Jumlah': 'Total'}).sort_values(by='Total', ascending=False)
 st.dataframe(df_ddos_summary)
+st.write(f'Total serangan: {df_ddos_summary["Total"].sum()}')
 
 def listToString(listItem : list) -> str:
     string = ', '.join(listItem) 
